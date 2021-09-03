@@ -1,7 +1,12 @@
-import {useState} from "react";
 import {FaRegTrashAlt, FaPlus} from "react-icons/fa";
 import {useSelector, useDispatch} from "react-redux";
-import {inputEvent, addValue, selectInput, storageInside} from "./storageSlice";
+import {
+  inputEvent,
+  addValue,
+  selectInput,
+  storageInside,
+  removeValue,
+} from "./storageSlice";
 
 const TodoList = () => {
   const inputValue = useSelector(selectInput);
@@ -20,9 +25,9 @@ const TodoList = () => {
         </button>
       </div>
       {values.map((value, i) => (
-        <div className="value" key={i}>
+        <div className="value" key={String(i)}>
           <p>{value}</p>
-          <button onClick={() => {}}>
+          <button onClick={() => dispatch(removeValue(String(i)))}>
             <FaRegTrashAlt />
           </button>
         </div>

@@ -16,10 +16,16 @@ export const storageSlice = createSlice({
       const newStorage = [...state.valueStorage];
       newStorage.push(state.inputValue);
       state.valueStorage = newStorage;
-      console.log("second", state.valueStorage);
+      state.inputValue = "";
     },
-    removeValue: (state, key) => {
-      const newStorage = [...state.valueStorage];
+    removeValue: (state, action) => {
+      const oldStorage = [...state.valueStorage];
+      // const removeKey = () => {
+      //   return oldStorage !== action.payload;
+      // };
+      // const newStorage = oldStorage.filter(removeKey);
+      oldStorage.splice(action.payload, 1);
+      state.valueStorage = oldStorage;
     },
   },
 });
@@ -27,6 +33,6 @@ export const storageSlice = createSlice({
 export const selectInput = (state) => state.todoList.inputValue;
 export const storageInside = (state) => state.todoList.valueStorage;
 
-export const {inputEvent, addValue} = storageSlice.actions;
+export const {inputEvent, addValue, removeValue} = storageSlice.actions;
 
 export default storageSlice.reducer;
