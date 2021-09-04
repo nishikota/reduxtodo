@@ -7,29 +7,27 @@ import {
   storageInside,
   removeValue,
 } from "./storageSlice";
+import Button from "./Button";
+import Input from "./Input";
 
 const TodoList = () => {
   const inputValue = useSelector(selectInput);
   const values = useSelector(storageInside);
-  const dispatch = useDispatch();
+
   return (
     <>
       <div className="inputArea">
-        <input
-          placeholder="テキストを入力..."
-          onChange={(e) => dispatch(inputEvent(e.target.value))}
-          value={inputValue}
-        />
-        <button onClick={() => dispatch(addValue())}>
-          <FaPlus />
-        </button>
+        <Input inputEvent={inputEvent} value={inputValue} />
+        <Button buttonAction={addValue} icon={<FaPlus />} />
       </div>
       {values.map((value, i) => (
         <div className="value" key={String(i)}>
           <p>{value}</p>
-          <button onClick={() => dispatch(removeValue(String(i)))}>
-            <FaRegTrashAlt />
-          </button>
+          <Button
+            i={String(i)}
+            icon={<FaRegTrashAlt />}
+            buttonAction={removeValue}
+          />
         </div>
       ))}
     </>
